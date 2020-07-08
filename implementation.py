@@ -66,11 +66,11 @@ def define_graph():
     """
     lstmUnits = 64
     numClasses = 2
-    
+
     input_data = tf.placeholder(tf.float32, shape = [BATCH_SIZE, MAX_WORDS_IN_REVIEW,EMBEDDING_SIZE], name = "input_data")
     labels = tf.placeholder(tf.int32, shape = (BATCH_SIZE, 2), name = "labels")
     dropout_keep_prob = tf.placeholder_with_default(0.75, shape = (), name = "dropout_keep_prob")
-    
+
     lstmCell = tf.contrib.rnn.LSTMCell(lstmUnits,forget_bias= 1.0, initializer = tf.orthogonal_initializer())
     lstmCell = tf.contrib.rnn.DropoutWrapper(cell=lstmCell, output_keep_prob=dropout_keep_prob)
 
@@ -87,6 +87,6 @@ def define_graph():
     accuracy = tf.reduce_mean(tf.cast(correctPred, tf.float32),name = 'accuracy')
 
     loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=prediction, labels = labels), name= 'loss')
-    optimizer = tf.train.AdamOptimizer().minimize(loss)
-    
+    optimizer = tf.train.AdamOptimizer(1e-6).minimize(loss)
+
     return input_data, labels, dropout_keep_prob, optimizer, accuracy, loss

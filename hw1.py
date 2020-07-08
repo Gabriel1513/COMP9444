@@ -210,7 +210,6 @@ def convnet(X, Y, convlayer_sizes=[10, 10], \
 
     w, b, logits, preds, batch_xentropy, batch_loss = onelayer(flattened_value, Y,layersize=outputsize, input_size=7840)
 
-
     return conv1, conv2, w, b, logits, preds, batch_xentropy, batch_loss
 
 
